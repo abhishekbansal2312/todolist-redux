@@ -6,19 +6,19 @@ const todoSlice = createSlice({
     todolist: [
       {
         id: nanoid(),
-        title: "Buy milk",
+        title: "Do Breakfast",
         completed: false,
         color: "red",
       },
       {
         id: nanoid(),
-        title: "Buy doodh",
+        title: "Had Lunch",
         completed: false,
         color: "blue",
       },
       {
         id: nanoid(),
-        title: "Buy mum mum",
+        title: "Complete Homework",
         completed: false,
         color: "green",
       },
