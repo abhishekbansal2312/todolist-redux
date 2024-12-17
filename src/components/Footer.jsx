@@ -1,16 +1,14 @@
 import React from "react";
+import { colors, statuses } from "../slices/filterSlice";
+import { markAllCompleted, clearCompleted } from "../slices/todoSlice";
+import { useDispatch } from "react-redux";
 
-export default function Footer({
-  selectedStatus,
-  handleFilterStatusChange,
-  statuses,
-  selectedColor,
-  handleFilterColorChange,
-  colors,
-  leftTodos,
-  markAllCompleted,
-  clearCompleted,
-}) {
+import { filterColor, filterStatus } from "../slices/filterSlice";
+
+export default function Footer({ selectedStatus, selectedColor, todos }) {
+  const dispatch = useDispatch();
+  const leftTodos = todos.filter((todo) => !todo.completed);
+
   return (
     <div className=" py-6 border-t-2 ">
       <div className="flex flex-wrap justify-between gap-8 ">
@@ -18,25 +16,25 @@ export default function Footer({
           <h4 className="text-lg font-semibold text-gray-800">Actions</h4>
           <button
             className="bg-blue-600 hover:bg-blue-700 text-white rounded-md px-6 py-2 w-full  "
-            onClick={() => markAllCompleted()}
+            onClick={() => dispatch(markAllCompleted(todos))}
           >
             Mark All Completed
           </button>
           <button
             className="bg-blue-600 hover:bg-blue-700 text-white rounded-md px-6 py-2 w-full"
-            onClick={() => clearCompleted()}
+            onClick={() => dispatch(clearCompleted(todos))}
           >
             Clear Completed
           </button>
         </div>
 
         <div className="flex flex-col items-center">
-          {leftTodos > 0 ? (
+          {leftTodos.length > 0 ? (
             <div className="text-center">
               <p className="text-gray-700 font-semibold text-lg">
                 Remaining Todos:
               </p>
-              <div className="text-gray-900 ">{leftTodos} item left</div>
+              <div className="text-gray-900 ">{leftTodos.length} item left</div>
             </div>
           ) : (
             <div className="text-green-700 text-lg">All Done!</div>
@@ -53,7 +51,7 @@ export default function Footer({
               <button
                 key={status}
                 value={status}
-                onClick={() => handleFilterStatusChange(status)}
+                onClick={() => dispatch(filterStatus(status))}
                 className={` rounded-md ${
                   selectedStatus === status && "bg-blue-600 text-white p-1"
                 }`}
@@ -79,9 +77,7 @@ export default function Footer({
                   value={color}
                   checked={selectedColor === color}
                   onChange={() =>
-                    handleFilterColorChange(
-                      selectedColor === color ? "" : color
-                    )
+                    dispatch(filterColor(selectedColor === color ? "" : color))
                   }
                   className="appearance-none w-5 h-5 border border-gray-400 rounded-sm checked:bg-blue-600 checked:border-blue-600 focus:outline-none"
                 />

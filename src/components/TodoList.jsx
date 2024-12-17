@@ -1,12 +1,9 @@
 import React from "react";
+import { removeTodo, toggleCompleted, changeColor } from "../slices/todoSlice";
+import { useDispatch } from "react-redux";
 
-export default function TodoList({
-  todos,
-  removeTodo,
-  toggleCompleted,
-  changeColor,
-  colors,
-}) {
+export default function TodoList({ todos, colors }) {
+  const dispatch = useDispatch();
   return (
     <ul className=" ">
       {todos.map((todo) => (
@@ -17,7 +14,7 @@ export default function TodoList({
           <input
             type="checkbox"
             className="h-5 w-5 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
-            onChange={() => toggleCompleted({ id: todo.id })}
+            onChange={() => dispatch(toggleCompleted({ id: todo.id }))}
             checked={todo.completed}
           />
 
@@ -37,7 +34,7 @@ export default function TodoList({
           <select
             className="ml-4 px-2 py-1 rounded-md border border-gray-300 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
             onChange={(e) =>
-              changeColor({ id: todo.id, color: e.target.value })
+              dispatch(changeColor({ id: todo.id, color: e.target.value }))
             }
             value={todo.color || ""}
           >
@@ -53,7 +50,7 @@ export default function TodoList({
 
           <button
             className="ml-4 px-3 py-1  focus:outline-none focus:ring-2 focus:ring-red-400"
-            onClick={() => removeTodo({ id: todo.id })}
+            onClick={() => dispatch(removeTodo({ id: todo.id }))}
           >
             ❌
           </button>
