@@ -38,6 +38,13 @@ const todoSlice = createSlice({
         (todo) => todo.id !== action.payload.id
       );
     },
+    updateTodos: (state, action) => {
+      const { id, todoToEdit } = action.payload;
+      const todo = state.todolist.find((todo) => todo.id === id);
+      if (todo) {
+        todo.title = todoToEdit.title;
+      }
+    },
     toggleCompleted: (state, action) => {
       const todo = state.todolist.find((todo) => todo.id === action.payload.id);
       if (todo) {
@@ -53,7 +60,7 @@ const todoSlice = createSlice({
     markAllCompleted: (state, action) => {
       state.todolist.forEach((todo) => (todo.completed = action.payload));
     },
-    clearCompleted: (state, action) => {
+    clearCompleted: (state) => {
       state.todolist = state.todolist.filter((todo) => !todo.completed);
     },
   },
@@ -69,3 +76,6 @@ export const {
 } = todoSlice.actions;
 
 export default todoSlice.reducer;
+
+export const selectIncompleteTasks = (state) =>
+  state.todos.todolist.filter((todo) => !todo.completed);

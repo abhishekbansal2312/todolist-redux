@@ -1,9 +1,13 @@
 import React from "react";
 import { removeTodo, toggleCompleted, changeColor } from "../slices/todoSlice";
 import { useDispatch } from "react-redux";
+import { FiEdit } from "react-icons/fi";
 
 export default function TodoList({ todos, colors }) {
   const dispatch = useDispatch();
+  // const handleEditTodo = (todo) => {
+  //   dispatch(removeTodo({ id: todo.id, title: todo.title }));
+  // };
   return (
     <ul className=" ">
       {todos.map((todo) => (
@@ -47,9 +51,14 @@ export default function TodoList({ todos, colors }) {
               </option>
             ))}
           </select>
-
-          <button
+          {/* <button
             className="ml-4 px-3 py-1  focus:outline-none focus:ring-2 focus:ring-red-400"
+            onClick={handleEditTodo(todo)}
+          >
+            <FiEdit className="w-5 h-5" />
+          </button> */}
+          <button
+            className=" px-3 py-1  focus:outline-none focus:ring-2 focus:ring-red-400"
             onClick={() => dispatch(removeTodo({ id: todo.id }))}
           >
             ❌
