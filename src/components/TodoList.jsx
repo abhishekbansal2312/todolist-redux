@@ -1,7 +1,7 @@
 import React from "react";
 import { removeTodo, toggleCompleted, changeColor } from "../slices/todoSlice";
 import { useDispatch } from "react-redux";
-import { FiEdit } from "react-icons/fi";
+// import { FiEdit } from "react-icons/fi";
 
 export default function TodoList({ todos, colors }) {
   const dispatch = useDispatch();
