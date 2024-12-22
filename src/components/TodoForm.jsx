@@ -13,12 +13,11 @@ export default function TodoForm({ editIndex, editTitle, closeModal }) {
 
     if (editIndex !== -1) {
       dispatch(updateTodos({ id: editIndex, title: todo }));
+      closeModal();
     } else {
       dispatch(addTodo({ title: todo }));
     }
-
     setTodo("");
-    closeModal();
   };
 
   return (
@@ -33,12 +32,6 @@ export default function TodoForm({ editIndex, editTitle, closeModal }) {
         placeholder="What needs to be done?"
         className="flex-1 px-4 rounded-sm focus:outline-none focus:border-none"
       />
-      <button
-        type="submit"
-        className="ml-4 px-4 py-2 bg-blue-500 text-white rounded-md"
-      >
-        {editIndex !== -1 ? "Update" : "Add"}
-      </button>
     </form>
   );
 }
