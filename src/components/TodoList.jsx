@@ -6,10 +6,11 @@ import { FiEdit } from "react-icons/fi";
 import Modal from "./Modal";
 import TodoForm from "./TodoForm";
 
-export default function TodoList({ todos, editIndex, setEditIndex }) {
+export default function TodoList({ todos }) {
   const dispatch = useDispatch();
   const [modal, setModal] = useState(false);
   const [editTitle, setEditTitle] = useState("");
+  const [editIndex, setEditIndex] = useState(-1);
 
   const handleEditTodo = (todo) => {
     setEditIndex(todo.id);
